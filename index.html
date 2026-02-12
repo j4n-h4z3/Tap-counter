@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap Counter – Support</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #007AFF;
+            --green: #34C759;
+            --orange: #FF9500;
+            --pink: #FF2D55;
+            --bg: #0A0A0F;
+            --card: #16161F;
+            --card-border: rgba(255,255,255,0.06);
+            --text: #E8E8ED;
+            --text-muted: #8E8E93;
+            --radius: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Language switching via data-lang on <body> ===== */
+        body[data-lang="de"] [data-lang="en"] { display: none !important; }
+        body[data-lang="en"] [data-lang="de"] { display: none !important; }
+
+        .bg-glow {
+            position: fixed;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140vw;
+            height: 60vh;
+            background: radial-gradient(ellipse at center,
+                rgba(0,122,255,0.12) 0%,
+                rgba(52,199,89,0.06) 30%,
+                rgba(255,45,85,0.04) 50%,
+                transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lang-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 32px;
+        }
+
+        .lang-toggle button {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .lang-toggle button:first-child { border-radius: 10px 0 0 10px; }
+        .lang-toggle button:last-child { border-radius: 0 10px 10px 0; }
+
+        .lang-toggle button.active {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: #fff;
+        }
+
+        .lang-toggle button:hover:not(.active) {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .app-icon-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 88px;
+            height: 88px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--pink) 50%, var(--orange) 100%);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,122,255,0.25), 0 2px 8px rgba(255,45,85,0.15);
+            position: relative;
+        }
+
+        .app-icon-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 20px;
+            background: var(--bg);
+        }
+
+        .app-icon-text {
+            position: relative;
+            z-index: 1;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            background: linear-gradient(135deg, var(--blue), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: clamp(28px, 6vw, 38px);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--blue), var(--green), var(--orange), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        .counter-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 24px 0 0;
+        }
+
+        .counter-dots .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        .dot:nth-child(1) { background: var(--blue); animation-delay: 0s; }
+        .dot:nth-child(2) { background: var(--green); animation-delay: 0.3s; }
+        .dot:nth-child(3) { background: var(--orange); animation-delay: 0.6s; }
+        .dot:nth-child(4) { background: var(--pink); animation-delay: 0.9s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.35); opacity: 1; }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.05s; }
+        .card:nth-child(2) { animation-delay: 0.12s; }
+        .card:nth-child(3) { animation-delay: 0.19s; }
+        .card:nth-child(4) { animation-delay: 0.26s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .card-icon.blue { background: rgba(0,122,255,0.15); }
+        .card-icon.green { background: rgba(52,199,89,0.15); }
+        .card-icon.orange { background: rgba(255,149,0,0.15); }
+        .card-icon.pink { background: rgba(255,45,85,0.15); }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .card p, .card li {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 12px;
+        }
+
+        .card ul li {
+            padding: 6px 0 6px 20px;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .card:nth-child(1) ul li::before { background: var(--blue); }
+        .card:nth-child(2) ul li::before { background: var(--green); }
+        .card:nth-child(3) ul li::before { background: var(--orange); }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 0;
+            transition: opacity 0.2s;
+        }
+
+        .contact-link:hover { opacity: 0.75; }
+        .contact-link svg { width: 18px; height: 18px; }
+
+        .faq-item {
+            border-bottom: 1px solid var(--card-border);
+            padding: 16px 0;
+        }
+
+        .faq-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .faq-item:first-child { padding-top: 0; }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--text);
+            gap: 12px;
+        }
+
+        .faq-question .chevron {
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            color: var(--text-muted);
+        }
+
+        .faq-item.open .chevron { transform: rotate(180deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+            padding-top: 12px;
+        }
+
+        .faq-answer p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            transition: all 0.25s ease;
+            margin-top: 8px;
+        }
+
+        .nav-link:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+
+        footer a:hover { color: var(--text); }
+    </style>
+</head>
+<body data-lang="de">
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <!-- Language Toggle -->
+        <div class="lang-toggle">
+            <button id="btn-de" class="active" onclick="setLang('de')">DE</button>
+            <button id="btn-en" onclick="setLang('en')">EN</button>
+        </div>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="app-icon-wrap">
+                <span class="app-icon-text">+1</span>
+            </div>
+            <h1><span>Tap Counter</span></h1>
+            <p class="subtitle" data-lang="de">Schnell. Einfach. Zählen.</p>
+            <p class="subtitle" data-lang="en">Fast. Simple. Count.</p>
+            <div class="counter-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon blue">📱</div>
+                <h2 data-lang="de">Über die App</h2>
+                <h2 data-lang="en">About the App</h2>
+            </div>
+            <div data-lang="de">
+                <p>Tap Counter ist dein schneller, unkomplizierter Zähler für den Alltag. Wähle zwischen 4 Modi mit bis zu 4 gleichzeitigen Zählern – jeder in einer eigenen Farbe. Tippen zum Zählen, langes Drücken zum Zurücksetzen. Mit haptischem Feedback bei jeder Aktion.</p>
+                <ul>
+                    <li>Komplett offline – keine Internetverbindung nötig</li>
+                    <li>Keine Werbung, keine In-App-Käufe</li>
+                    <li>Keine Datenerfassung – deine Privatsphäre ist sicher</li>
+                </ul>
+            </div>
+            <div data-lang="en">
+                <p>Tap Counter is your fast, no-fuss counter for everyday use. Choose from 4 modes with up to 4 simultaneous counters – each in its own color. Tap to count, long press to reset. With haptic feedback on every action.</p>
+                <ul>
+                    <li>Fully offline – no internet required</li>
+                    <li>No ads, no in-app purchases</li>
+                    <li>No data collection – your privacy is safe</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon green">💡</div>
+                <h2 data-lang="de">Häufige Fragen</h2>
+                <h2 data-lang="en">FAQ</h2>
+            </div>
+
+            <div data-lang="de">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Wie setze ich einen Zähler zurück?
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer"><p>Halte den Zähler ca. 1 Sekunde lang gedrückt. Der Zähler wird auf 0 zurückgesetzt und du spürst ein haptisches Feedback.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Werden meine Zählerstände gespeichert?
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer"><p>Nein, die Zählerstände werden aktuell nicht dauerhaft gespeichert. Beim Schließen der App werden sie zurückgesetzt.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Welche Daten sammelt die App?
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer"><p>Keine. Tap Counter sammelt keinerlei persönliche Daten, Nutzungsdaten oder Analysedaten. Alles bleibt auf deinem Gerät.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Funktioniert die App ohne Internet?
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer"><p>Ja, Tap Counter funktioniert komplett offline. Es wird keine Internetverbindung benötigt.</p></div>
+                </div>
+            </div>
+
+            <div data-lang="en">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        How do I reset a counter?
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer"><p>Press and hold the counter for about 1 second. The counter resets to 0 and you'll feel haptic feedback.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Are my counter values saved?
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer"><p>No, counter values are currently not saved permanently. They reset when the app is closed.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        What data does the app collect?
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer"><p>None. Tap Counter does not collect any personal data, usage data, or analytics. Everything stays on your device.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Does the app work offline?
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="faq-answer"><p>Yes, Tap Counter works completely offline. No internet connection is required.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon orange">✉️</div>
+                <h2 data-lang="de">Kontakt &amp; Support</h2>
+                <h2 data-lang="en">Contact &amp; Support</h2>
+            </div>
+            <p data-lang="de" style="color: var(--text-muted); font-size: 15px; line-height: 1.7;">Du hast eine Frage, einen Fehler gefunden oder einen Verbesserungsvorschlag? Schreib mir gerne eine E-Mail:</p>
+            <p data-lang="en" style="color: var(--text-muted); font-size: 15px; line-height: 1.7;">Have a question, found a bug, or have a suggestion? Feel free to send me an email:</p>
+            <a href="mailto:jan.hees@icloud.com" class="contact-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13L2 4"/></svg>
+                jan.hees@icloud.com
+            </a>
+        </div>
+
+        <!-- Privacy Link -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon pink">🔒</div>
+                <h2 data-lang="de">Datenschutz</h2>
+                <h2 data-lang="en">Privacy</h2>
+            </div>
+            <p data-lang="de" style="color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 16px;">Deine Privatsphäre ist uns wichtig. Tap Counter sammelt keine persönlichen Daten.</p>
+            <p data-lang="en" style="color: var(--text-muted); font-size: 15px; line-height: 1.7; margin-bottom: 16px;">Your privacy matters. Tap Counter does not collect any personal data.</p>
+            <a href="privacy.html" class="nav-link" data-lang="de">Datenschutzerklärung lesen →</a>
+            <a href="privacy.html" class="nav-link" data-lang="en">Read Privacy Policy →</a>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p data-lang="de">
+                © 2025 Jan-Hendrik Hees<br>
+                Auf dem Burhof 10, 58093 Hagen<br>
+                <a href="privacy.html">Datenschutzerklärung</a>
+            </p>
+            <p data-lang="en">
+                © 2025 Jan-Hendrik Hees<br>
+                Auf dem Burhof 10, 58093 Hagen, Germany<br>
+                <a href="privacy.html">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function setLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.documentElement.lang = lang;
+            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.querySelectorAll('.faq-item').forEach(function(item) {
+                item.classList.remove('open');
+            });
+        }
+
+        function toggleFaq(el) {
+            var item = el.parentElement;
+            var wasOpen = item.classList.contains('open');
+            item.parentElement.querySelectorAll('.faq-item').forEach(function(i) {
+                i.classList.remove('open');
+            });
+            if (!wasOpen) item.classList.add('open');
+        }
+    </script>
+</body>
+</html>

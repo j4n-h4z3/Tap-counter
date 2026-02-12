@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap Counter – Datenschutzerklärung / Privacy Policy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #007AFF;
+            --green: #34C759;
+            --orange: #FF9500;
+            --pink: #FF2D55;
+            --bg: #0A0A0F;
+            --card: #16161F;
+            --card-border: rgba(255,255,255,0.06);
+            --text: #E8E8ED;
+            --text-muted: #8E8E93;
+            --radius: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Language switching via data-lang on <body> ===== */
+        body[data-lang="de"] [data-lang="en"] { display: none !important; }
+        body[data-lang="en"] [data-lang="de"] { display: none !important; }
+
+        .bg-glow {
+            position: fixed;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140vw;
+            height: 60vh;
+            background: radial-gradient(ellipse at center,
+                rgba(255,45,85,0.10) 0%,
+                rgba(0,122,255,0.06) 30%,
+                rgba(52,199,89,0.03) 50%,
+                transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lang-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 32px;
+        }
+
+        .lang-toggle button {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .lang-toggle button:first-child { border-radius: 10px 0 0 10px; }
+        .lang-toggle button:last-child { border-radius: 0 10px 10px 0; }
+
+        .lang-toggle button.active {
+            background: var(--pink);
+            border-color: var(--pink);
+            color: #fff;
+        }
+
+        .lang-toggle button:hover:not(.active) {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 28px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--blue); }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .shield-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(255,45,85,0.15), rgba(0,122,255,0.15));
+            margin-bottom: 16px;
+            font-size: 32px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: clamp(24px, 5vw, 32px);
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.05s; }
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.15s; }
+        .section:nth-child(4) { animation-delay: 0.2s; }
+        .section:nth-child(5) { animation-delay: 0.25s; }
+        .section:nth-child(6) { animation-delay: 0.3s; }
+        .section:nth-child(7) { animation-delay: 0.35s; }
+        .section:nth-child(8) { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .section:nth-child(odd) .section-number { background: var(--blue); }
+        .section:nth-child(even) .section-number { background: var(--pink); }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.75;
+        }
+
+        .section p + p { margin-top: 10px; }
+
+        .section a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        .section a:hover { text-decoration: underline; }
+
+        .highlight {
+            display: inline-block;
+            background: rgba(52,199,89,0.12);
+            color: var(--green);
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+
+        footer a:hover { color: var(--text); }
+    </style>
+</head>
+<body data-lang="de">
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <!-- Language Toggle -->
+        <div class="lang-toggle">
+            <button id="btn-de" class="active" onclick="setLang('de')">DE</button>
+            <button id="btn-en" onclick="setLang('en')">EN</button>
+        </div>
+
+        <!-- Back -->
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            <span data-lang="de">Zurück zum Support</span>
+            <span data-lang="en">Back to Support</span>
+        </a>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="shield-icon">🔒</div>
+            <h1 data-lang="de">Datenschutzerklärung</h1>
+            <h1 data-lang="en">Privacy Policy</h1>
+            <p class="subtitle" data-lang="de">Tap Counter — Zuletzt aktualisiert: Februar 2025</p>
+            <p class="subtitle" data-lang="en">Tap Counter — Last updated: February 2025</p>
+        </div>
+
+        <!-- ===== GERMAN SECTIONS ===== -->
+        <div data-lang="de">
+            <div class="section">
+                <div class="section-number">1</div>
+                <h2>Verantwortlicher</h2>
+                <p>Jan-Hendrik Hees<br>Auf dem Burhof 10<br>58093 Hagen<br>E-Mail: <a href="mailto:jan.hees@icloud.com">jan.hees@icloud.com</a></p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">2</div>
+                <h2>Kurz &amp; knapp</h2>
+                <p><span class="highlight">Tap Counter sammelt keine Daten.</span></p>
+                <p>Die App funktioniert vollständig offline. Es werden keine persönlichen Daten, Nutzungsdaten, Standortdaten oder sonstige Informationen erfasst, gespeichert oder an Dritte übertragen.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">3</div>
+                <h2>Datenerhebung &amp; Speicherung</h2>
+                <p>Tap Counter erhebt und speichert keinerlei Daten. Die Zählerstände werden nur im Arbeitsspeicher gehalten und beim Schließen der App gelöscht. Es findet keine dauerhafte Speicherung auf dem Gerät statt.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">4</div>
+                <h2>Netzwerkverbindungen</h2>
+                <p>Tap Counter stellt keine Netzwerkverbindungen her. Die App benötigt kein Internet und kommuniziert mit keinen Servern oder externen Diensten.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">5</div>
+                <h2>Drittanbieter &amp; Tracking</h2>
+                <p>Tap Counter enthält keine Analyse-Tools, keine Werbe-SDKs, kein Tracking und keine Drittanbieter-Dienste. Es werden keine Cookies, Identifier oder Fingerprints verwendet.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">6</div>
+                <h2>Berechtigungen</h2>
+                <p>Tap Counter benötigt keine besonderen Berechtigungen. Die App greift nicht auf Kamera, Mikrofon, Kontakte, Standort oder andere Systemfunktionen zu.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">7</div>
+                <h2>Kinder &amp; Jugendliche</h2>
+                <p>Da Tap Counter keine Daten erhebt, ist die App uneingeschränkt für alle Altersgruppen geeignet. Es gibt keine Inhalte, die eine Altersbeschränkung erfordern.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">8</div>
+                <h2>Änderungen &amp; Kontakt</h2>
+                <p>Bei Änderungen an dieser Datenschutzerklärung wird diese Seite entsprechend aktualisiert. Bei Fragen zum Datenschutz erreichst du mich unter <a href="mailto:jan.hees@icloud.com">jan.hees@icloud.com</a>.</p>
+            </div>
+        </div>
+
+        <!-- ===== ENGLISH SECTIONS ===== -->
+        <div data-lang="en">
+            <div class="section">
+                <div class="section-number">1</div>
+                <h2>Responsible Party</h2>
+                <p>Jan-Hendrik Hees<br>Auf dem Burhof 10<br>58093 Hagen, Germany<br>Email: <a href="mailto:jan.hees@icloud.com">jan.hees@icloud.com</a></p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">2</div>
+                <h2>In a Nutshell</h2>
+                <p><span class="highlight">Tap Counter does not collect any data.</span></p>
+                <p>The app works entirely offline. No personal data, usage data, location data, or any other information is collected, stored, or transmitted to third parties.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">3</div>
+                <h2>Data Collection &amp; Storage</h2>
+                <p>Tap Counter does not collect or store any data. Counter values are only held in memory and are deleted when the app is closed. There is no persistent storage on the device.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">4</div>
+                <h2>Network Connections</h2>
+                <p>Tap Counter does not establish any network connections. The app does not require the internet and does not communicate with any servers or external services.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">5</div>
+                <h2>Third Parties &amp; Tracking</h2>
+                <p>Tap Counter contains no analytics tools, no advertising SDKs, no tracking, and no third-party services. No cookies, identifiers, or fingerprints are used.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">6</div>
+                <h2>Permissions</h2>
+                <p>Tap Counter requires no special permissions. The app does not access the camera, microphone, contacts, location, or any other system features.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">7</div>
+                <h2>Children &amp; Minors</h2>
+                <p>Since Tap Counter does not collect any data, the app is suitable for all age groups without restriction. There is no content that requires an age rating.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">8</div>
+                <h2>Changes &amp; Contact</h2>
+                <p>If changes are made to this privacy policy, this page will be updated accordingly. For privacy-related questions, please contact me at <a href="mailto:jan.hees@icloud.com">jan.hees@icloud.com</a>.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p data-lang="de">
+                © 2025 Jan-Hendrik Hees<br>
+                <a href="index.html">Zurück zum Support</a>
+            </p>
+            <p data-lang="en">
+                © 2025 Jan-Hendrik Hees<br>
+                <a href="index.html">Back to Support</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function setLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.documentElement.lang = lang;
+            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        }
+    </script>
+</body>
+</html>

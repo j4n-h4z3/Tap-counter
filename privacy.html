@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap Counter – Datenschutzerklärung / Privacy Policy</title>
+    <meta name="description" content="Datenschutzerklärung der Tap Counter iOS App – keine Datenerfassung, komplett offline.">
+    <meta name="theme-color" content="#0A0A0F">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="og-image.png">
+
+    <!-- SEO: Canonical URL -->
+    <link rel="canonical" href="https://janhendrikhees.github.io/Tap-Counter/privacy.html">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://janhendrikhees.github.io/Tap-Counter/privacy.html">
+    <meta property="og:title" content="Tap Counter – Datenschutzerklärung / Privacy Policy">
+    <meta property="og:description" content="Datenschutzerklärung der Tap Counter iOS App – keine Datenerfassung, komplett offline.">
+    <meta property="og:image" content="https://janhendrikhees.github.io/Tap-Counter/og-image.png">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <link rel="preload" href="fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        /* Schriften werden lokal ausgeliefert, es gibt keine Verbindung zu Google Fonts. */
+        @font-face {
+            font-family: 'DM Sans';
+            font-style: normal;
+            font-weight: 100 1000;
+            font-display: swap;
+            src: url('fonts/dm-sans-latin-wght-normal.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Outfit';
+            font-style: normal;
+            font-weight: 100 900;
+            font-display: swap;
+            src: url('fonts/outfit-latin-wght-normal.woff2') format('woff2');
+        }
+
+        :root {
+            --blue: #007AFF;
+            --green: #34C759;
+            --orange: #FF9500;
+            --pink: #FF2D55;
+            --bg: #0A0A0F;
+            --card: #16161F;
+            --card-border: rgba(255,255,255,0.06);
+            --text: #E8E8ED;
+            --text-muted: #8E8E93;
+            --radius: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Language switching via data-lang on <body> ===== */
+        body[data-lang="de"] [data-lang="en"] { display: none !important; }
+        body[data-lang="en"] [data-lang="de"] { display: none !important; }
+
+        .bg-glow {
+            position: fixed;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140vw;
+            height: 60vh;
+            background: radial-gradient(ellipse at center,
+                rgba(255,45,85,0.10) 0%,
+                rgba(0,122,255,0.06) 30%,
+                rgba(52,199,89,0.03) 50%,
+                transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lang-toggle {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 32px;
+        }
+
+        .lang-toggle button {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .lang-toggle button:first-child { border-radius: 10px 0 0 10px; }
+        .lang-toggle button:last-child { border-radius: 0 10px 10px 0; }
+
+        .lang-toggle button.active {
+            background: var(--pink);
+            border-color: var(--pink);
+            color: #fff;
+        }
+
+        .lang-toggle button:hover:not(.active) {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 28px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: var(--blue); }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .shield-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(255,45,85,0.15), rgba(0,122,255,0.15));
+            margin-bottom: 16px;
+            font-size: 32px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: clamp(24px, 5vw, 32px);
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fadeUp 0.5s ease forwards;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.05s; }
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.15s; }
+        .section:nth-child(4) { animation-delay: 0.2s; }
+        .section:nth-child(5) { animation-delay: 0.25s; }
+        .section:nth-child(6) { animation-delay: 0.3s; }
+        .section:nth-child(7) { animation-delay: 0.35s; }
+        .section:nth-child(8) { animation-delay: 0.4s; }
+        .section:nth-child(9) { animation-delay: 0.45s; }
+        .section:nth-child(10) { animation-delay: 0.5s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .section:nth-child(odd) .section-number { background: var(--blue); }
+        .section:nth-child(even) .section-number { background: var(--pink); }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.75;
+        }
+
+        .section p + p { margin-top: 10px; }
+
+        .section a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        .section a:hover { text-decoration: underline; }
+
+        .highlight {
+            display: inline-block;
+            background: rgba(52,199,89,0.12);
+            color: var(--green);
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+
+        footer a:hover { color: var(--text); }
+        /* Bewegung reduzieren, wenn im System eingestellt */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+            .card, .section { opacity: 1; transform: none; }
+        }
+
+        .lang-toggle button:focus-visible, a:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body data-lang="de">
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <!-- Language Toggle -->
+        <div class="lang-toggle">
+            <button id="btn-de" class="active" aria-pressed="true" lang="de" aria-label="Deutsch" onclick="setLang('de', true)">DE</button>
+            <button id="btn-en" aria-pressed="false" lang="en" aria-label="English" onclick="setLang('en', true)">EN</button>
+        </div>
+
+        <!-- Back -->
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            <span data-lang="de">Zurück zum Support</span>
+            <span data-lang="en">Back to Support</span>
+        </a>
+
+        <!-- Hero -->
+        <div class="hero">
+            <div class="shield-icon">🔒</div>
+            <h1 data-lang="de">Datenschutzerklärung</h1>
+            <h1 data-lang="en">Privacy Policy</h1>
+            <p class="subtitle" data-lang="de">Tap Counter — Zuletzt aktualisiert: November 2026</p>
+            <p class="subtitle" data-lang="en">Tap Counter — Last updated: November 2026</p>
+        </div>
+
+        <!-- ===== GERMAN SECTIONS ===== -->
+        <div data-lang="de">
+            <div class="section">
+                <div class="section-number">1</div>
+                <h2>Verantwortlicher</h2>
+                <p>Jan-Hendrik Hees<br>Auf dem Burhof 10<br>58093 Hagen<br>E-Mail: <a href="mailto:janhendrik.hees@gmail.com">janhendrik.hees@gmail.com</a></p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">2</div>
+                <h2>Kurz &amp; knapp</h2>
+                <p><span class="highlight">Tap Counter sammelt keine Daten.</span></p>
+                <p>Die App funktioniert vollständig offline. Es werden keine persönlichen Daten, Nutzungsdaten, Standortdaten oder sonstige Informationen erfasst, gespeichert oder an Dritte übertragen.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">3</div>
+                <h2>Datenerhebung &amp; Speicherung</h2>
+                <p>Tap Counter erhebt und speichert keinerlei Daten. Die Zählerstände werden nur im Arbeitsspeicher gehalten und gehen beim Beenden der App verloren. Es findet keine dauerhafte Speicherung auf dem Gerät statt. Die Sprache der App richtet sich nach den iOS-Einstellungen.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">4</div>
+                <h2>Netzwerkverbindungen</h2>
+                <p>Tap Counter stellt keine Netzwerkverbindungen her. Die App benötigt kein Internet und kommuniziert mit keinen Servern oder externen Diensten.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">5</div>
+                <h2>Drittanbieter &amp; Tracking</h2>
+                <p>Tap Counter enthält keine Analyse-Tools, keine Werbe-SDKs, kein Tracking und keine Drittanbieter-Dienste. Es werden keine Cookies, Identifier oder Fingerprints verwendet.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">6</div>
+                <h2>Berechtigungen</h2>
+                <p>Tap Counter benötigt keine besonderen Berechtigungen. Die App greift nicht auf Kamera, Mikrofon, Kontakte, Standort oder andere Systemfunktionen zu.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">7</div>
+                <h2>Kinder &amp; Jugendliche</h2>
+                <p>Tap Counter erhebt keine Daten, auch nicht von Kindern. Die App enthält keine Werbung und keine In-App-Käufe.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">8</div>
+                <h2>Hosting dieser Website</h2>
+                <p>Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Zugriffsdaten wie IP-Adresse, Zeitpunkt, aufgerufene Seite und Browsertyp in Server-Logs. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der sicheren und stabilen Bereitstellung der Website.</p>
+                <p>Dabei können Daten in die USA übertragen werden. GitHub ist nach dem EU-US Data Privacy Framework zertifiziert. Weitere Informationen stehen in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von GitHub</a>.</p>
+                <p>Die Website selbst setzt keine Cookies, verwendet keine Analyse-Tools und lädt keine Inhalte von Drittanbietern. Schriftarten werden lokal ausgeliefert. Wenn du die Sprache umschaltest, wird diese Auswahl ausschließlich lokal in deinem Browser gespeichert.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">9</div>
+                <h2>Deine Rechte</h2>
+                <p>In der App werden keine personenbezogenen Daten verarbeitet. Für die beim Besuch dieser Website anfallenden Zugriffsdaten hast du die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 21 DSGVO).</p>
+                <p>Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), zum Beispiel bei der Landesbeauftragten für Datenschutz und Informationsfreiheit Nordrhein-Westfalen.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">10</div>
+                <h2>Änderungen &amp; Kontakt</h2>
+                <p>Bei Änderungen an dieser Datenschutzerklärung wird diese Seite entsprechend aktualisiert. Bei Fragen zum Datenschutz erreichst du mich unter <a href="mailto:janhendrik.hees@gmail.com">janhendrik.hees@gmail.com</a>.</p>
+            </div>
+        </div>
+
+        <!-- ===== ENGLISH SECTIONS ===== -->
+        <div data-lang="en">
+            <div class="section">
+                <div class="section-number">1</div>
+                <h2>Responsible Party</h2>
+                <p>Jan-Hendrik Hees<br>Auf dem Burhof 10<br>58093 Hagen, Germany<br>Email: <a href="mailto:janhendrik.hees@gmail.com">janhendrik.hees@gmail.com</a></p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">2</div>
+                <h2>In a Nutshell</h2>
+                <p><span class="highlight">Tap Counter does not collect any data.</span></p>
+                <p>The app works entirely offline. No personal data, usage data, location data, or any other information is collected, stored, or transmitted to third parties.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">3</div>
+                <h2>Data Collection &amp; Storage</h2>
+                <p>Tap Counter does not collect or store any data. Counter values are only held in memory and are lost when the app is closed. There is no persistent storage on the device. The app language follows your iOS settings.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">4</div>
+                <h2>Network Connections</h2>
+                <p>Tap Counter does not establish any network connections. The app does not require the internet and does not communicate with any servers or external services.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">5</div>
+                <h2>Third Parties &amp; Tracking</h2>
+                <p>Tap Counter contains no analytics tools, no advertising SDKs, no tracking, and no third-party services. No cookies, identifiers, or fingerprints are used.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">6</div>
+                <h2>Permissions</h2>
+                <p>Tap Counter requires no special permissions. The app does not access the camera, microphone, contacts, location, or any other system features.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">7</div>
+                <h2>Children &amp; Minors</h2>
+                <p>Tap Counter does not collect any data, including from children. The app contains no advertising and no in-app purchases.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">8</div>
+                <h2>Website Hosting</h2>
+                <p>This website is served via GitHub Pages, a service of GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. When you open the page, GitHub processes technically necessary access data such as IP address, time, requested page, and browser type in server logs. The legal basis is Art. 6(1)(f) GDPR. The legitimate interest is the secure and stable provision of the website.</p>
+                <p>Data may be transferred to the USA in the process. GitHub is certified under the EU-US Data Privacy Framework. For more information, see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub's Privacy Statement</a>.</p>
+                <p>The website itself sets no cookies, uses no analytics tools, and loads no third-party content. Fonts are served locally. If you switch the language, that choice is stored only locally in your browser.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">9</div>
+                <h2>Your Rights</h2>
+                <p>The app does not process any personal data. For the access data generated when visiting this website, you have the rights of access, rectification, erasure, restriction of processing, data portability, and objection (Art. 15 to 21 GDPR).</p>
+                <p>You may also lodge a complaint with a data protection supervisory authority (Art. 77 GDPR), for example the State Commissioner for Data Protection and Freedom of Information of North Rhine-Westphalia.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-number">10</div>
+                <h2>Changes &amp; Contact</h2>
+                <p>If changes are made to this privacy policy, this page will be updated accordingly. For privacy-related questions, please contact me at <a href="mailto:janhendrik.hees@gmail.com">janhendrik.hees@gmail.com</a>.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p data-lang="de">
+                © 2026 Jan-Hendrik Hees<br>
+                <a href="index.html">Zurück zum Support</a> · <a href="index.html#impressum">Impressum</a>
+            </p>
+            <p data-lang="en">
+                © 2026 Jan-Hendrik Hees<br>
+                <a href="index.html">Back to Support</a> · <a href="index.html#impressum">Imprint</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function setLang(lang, remember) {
+            document.body.setAttribute('data-lang', lang);
+            document.documentElement.lang = lang;
+            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-de').setAttribute('aria-pressed', String(lang === 'de'));
+            document.getElementById('btn-en').setAttribute('aria-pressed', String(lang === 'en'));
+            if (remember) {
+                try { window.localStorage.setItem('lang', lang); } catch (e) {}
+            }
+        }
+        // Sprache: 1. ?lang=de|en in der URL, 2. frühere Auswahl, 3. Browsersprache.
+        // Gespeichert wird nur, wenn die Sprache aktiv umgeschaltet wurde.
+        (function () {
+            var lang = null;
+            try { lang = new URLSearchParams(window.location.search).get('lang'); } catch (e) {}
+            if (lang !== 'de' && lang !== 'en') {
+                try { lang = window.localStorage.getItem('lang'); } catch (e) { lang = null; }
+            }
+            if (lang !== 'de' && lang !== 'en') {
+                lang = (navigator.language || 'de').toLowerCase().indexOf('de') === 0 ? 'de' : 'en';
+            }
+            setLang(lang, false);
+        })();
+    </script>
+</body>
+</html>

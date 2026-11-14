@@ -8,7 +8,7 @@ Diese Website wird über GitHub Pages gehostet und dient als offizielle Support-
 
 - `index.html` – Support-Seite mit App-Beschreibung, Features und FAQ
 - `privacy.html` – Datenschutzerklärung (Deutsch/Englisch)
-- `favicon.svg` – Favicon
+- `favicon.png`, `apple-touch-icon.png`, `app-icon.png` – App-Icon in drei Größen
 - `og-image.png` – Social-Media-Vorschaubild
 
 ## Live

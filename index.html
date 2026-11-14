@@ -2,14 +2,16 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Tap Counter – Support</title>
     <meta name="description" content="Tap Counter – der schnelle, einfache Zähler für iOS. Bis zu 4 Zähler gleichzeitig, komplett offline, keine Werbung.">
     <meta name="theme-color" content="#0A0A0F">
+    <meta name="color-scheme" content="dark">
+    <meta name="format-detection" content="telephone=no">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="apple-touch-icon" href="og-image.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <!-- SEO: Canonical URL -->
     <link rel="canonical" href="https://janhendrikhees.github.io/Tap-Counter/">
@@ -63,12 +65,22 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html {
+            /* iOS vergrößert Text im Querformat sonst eigenmächtig */
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            background: var(--bg);
+            color-scheme: dark;
+        }
+
         body {
             font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
+            min-height: 100dvh;
             overflow-x: hidden;
+            overflow-wrap: break-word;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -96,6 +108,10 @@
             max-width: 680px;
             margin: 0 auto;
             padding: 40px 24px 60px;
+            padding: max(40px, calc(env(safe-area-inset-top) + 16px))
+                     max(24px, calc(env(safe-area-inset-right) + 16px))
+                     max(60px, calc(env(safe-area-inset-bottom) + 40px))
+                     max(24px, calc(env(safe-area-inset-left) + 16px));
             position: relative;
             z-index: 1;
         }
@@ -111,9 +127,12 @@
             border: 1px solid var(--card-border);
             color: var(--text-muted);
             padding: 8px 16px;
+            min-width: 52px;
+            min-height: 44px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
+            touch-action: manipulation;
             transition: all 0.25s ease;
         }
 
@@ -135,37 +154,13 @@
             margin-bottom: 48px;
         }
 
-        .app-icon-wrap {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        .app-icon {
+            display: inline-block;
             width: 88px;
             height: 88px;
-            border-radius: 22px;
-            background: linear-gradient(135deg, var(--blue) 0%, var(--pink) 50%, var(--orange) 100%);
+            border-radius: 20px;
             margin-bottom: 20px;
             box-shadow: 0 8px 32px rgba(0,122,255,0.25), 0 2px 8px rgba(255,45,85,0.15);
-            position: relative;
-        }
-
-        .app-icon-wrap::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            border-radius: 20px;
-            background: var(--bg);
-        }
-
-        .app-icon-text {
-            position: relative;
-            z-index: 1;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 32px;
-            background: linear-gradient(135deg, var(--blue), var(--pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         h1 {
@@ -220,9 +215,7 @@
             padding: 28px;
             margin-bottom: 20px;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            opacity: 0;
-            transform: translateY(16px);
-            animation: fadeUp 0.5s ease forwards;
+            animation: fadeUp 0.5s ease both;
         }
 
         .card:nth-child(1) { animation-delay: 0.05s; }
@@ -233,12 +226,16 @@
         .card:nth-child(6) { animation-delay: 0.40s; }
 
         @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        /* Hover nur auf Geräten mit Maus, auf Touch-Geräten bliebe er „kleben“ */
+        @media (hover: hover) {
+            .card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            }
         }
 
         .card-header {
@@ -309,6 +306,9 @@
             font-weight: 500;
             font-size: 16px;
             padding: 10px 0;
+            min-height: 44px;
+            max-width: 100%;
+            overflow-wrap: anywhere;
             transition: opacity 0.2s;
         }
 
@@ -336,6 +336,8 @@
             background: none;
             border: none;
             padding: 0;
+            min-height: 44px;
+            touch-action: manipulation;
             width: 100%;
             text-align: left;
             font-family: inherit;
@@ -378,7 +380,8 @@
             gap: 6px;
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 15px;
+            min-height: 44px;
             padding: 8px 16px;
             border-radius: 10px;
             border: 1px solid var(--card-border);
@@ -404,6 +407,10 @@
             text-decoration: underline;
             text-underline-offset: 3px;
             transition: color 0.2s;
+            /* größere Tippfläche, ohne das Layout zu verschieben */
+            display: inline-block;
+            padding: 12px 4px;
+            overflow-wrap: anywhere;
         }
 
         footer a:hover { color: var(--text); }
@@ -414,6 +421,15 @@
                 transition: none !important;
             }
             .card, .section { opacity: 1; transform: none; }
+        }
+
+        /* Sehr schmale Displays (z. B. Anzeigezoom, iPhone SE) */
+        @media (max-width: 360px) {
+            .container {
+                padding-left: max(16px, calc(env(safe-area-inset-left) + 12px));
+                padding-right: max(16px, calc(env(safe-area-inset-right) + 12px));
+            }
+            .card, .section { padding: 20px; }
         }
 
         .lang-toggle button:focus-visible, a:focus-visible {
@@ -435,9 +451,7 @@
 
         <!-- Hero -->
         <div class="hero">
-            <div class="app-icon-wrap">
-                <span class="app-icon-text">+1</span>
-            </div>
+            <img class="app-icon" src="app-icon.png" width="88" height="88" alt="">
             <h1><span>Tap Counter</span></h1>
             <p class="subtitle" data-lang="de">Schnell. Einfach. Zählen.</p>
             <p class="subtitle" data-lang="en">Fast. Simple. Count.</p>
@@ -586,23 +600,23 @@
             </div>
             <div data-lang="de">
                 <p><strong>Angaben gemäß § 5 DDG</strong><br>Jan-Hendrik Hees<br>Auf dem Burhof 10<br>58093 Hagen<br>Deutschland</p>
-                <p style="margin-top: 12px;"><strong>Kontakt</strong><br>E-Mail: <a href="mailto:janhendrik.hees@gmail.com" style="color: var(--blue);">janhendrik.hees@gmail.com</a></p>
+                <p style="margin-top: 12px;"><strong>Kontakt</strong><br>E-Mail: <a href="mailto:janhendrik.hees@gmail.com" style="color: var(--blue); display: inline-block; padding: 10px 0; overflow-wrap: anywhere;">janhendrik.hees@gmail.com</a></p>
             </div>
             <div data-lang="en">
                 <p><strong>Information pursuant to § 5 DDG (German Digital Services Act)</strong><br>Jan-Hendrik Hees<br>Auf dem Burhof 10<br>58093 Hagen<br>Germany</p>
-                <p style="margin-top: 12px;"><strong>Contact</strong><br>Email: <a href="mailto:janhendrik.hees@gmail.com" style="color: var(--blue);">janhendrik.hees@gmail.com</a></p>
+                <p style="margin-top: 12px;"><strong>Contact</strong><br>Email: <a href="mailto:janhendrik.hees@gmail.com" style="color: var(--blue); display: inline-block; padding: 10px 0; overflow-wrap: anywhere;">janhendrik.hees@gmail.com</a></p>
             </div>
         </div>
 
         <!-- Footer -->
         <footer>
             <p data-lang="de">
-                © 2026 Jan-Hendrik Hees<br>
+                © 2023–2026 Jan-Hendrik Hees<br>
                 Auf dem Burhof 10, 58093 Hagen<br>
                 <a href="mailto:janhendrik.hees@gmail.com">janhendrik.hees@gmail.com</a> · <a href="#impressum">Impressum</a> · <a href="privacy.html">Datenschutzerklärung</a>
             </p>
             <p data-lang="en">
-                © 2026 Jan-Hendrik Hees<br>
+                © 2023–2026 Jan-Hendrik Hees<br>
                 Auf dem Burhof 10, 58093 Hagen, Germany<br>
                 <a href="mailto:janhendrik.hees@gmail.com">janhendrik.hees@gmail.com</a> · <a href="#impressum">Imprint</a> · <a href="privacy.html">Privacy Policy</a>
             </p>

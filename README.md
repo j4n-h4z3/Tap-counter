@@ -13,4 +13,4 @@ Diese Website wird über GitHub Pages gehostet und dient als offizielle Support-
 
 ## Live
 
-[https://janhendrikhees.github.io/Tap-Counter/](https://janhendrikhees.github.io/Tap-Counter/)
+[https://j4n-h4z3.github.io/Tap-counter/](https://j4n-h4z3.github.io/Tap-counter/)
